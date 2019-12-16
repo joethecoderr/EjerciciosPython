@@ -97,6 +97,7 @@ def run():
 
     while True:
         display_board(hidden_word, tries)
+
         curr_letter = str(input('Escoge una letra: '))
 
         letter_idx = []
@@ -104,13 +105,29 @@ def run():
             if word[i] == curr_letter:
                 letter_idx.append(i)
                 
-        if(len(letter_idx) == 0):
+        if len(letter_idx) == 0:
             tries += 1
+            if tries == 7:
+                display_board(hidden_word, tries)
+                print('')
+                print('Perdiste! la palabra correcta era {0}'.format(word))
+                break
+
         else:
             for i in letter_idx:
                 hidden_word[i] = curr_letter
+            letter_idx = []  
+        try:
+            hidden_word.index('-')
+        except ValueError:
+            
+            print('')
+            print('Ganaste')
+            break
 
-            letter_idx = []
+            
+
+
 
 if __name__ == '__main__':
     print('BIENVENIDOS AL JUEGO DE AHORCADOS')
